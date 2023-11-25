@@ -32,5 +32,4 @@
 ### Stable Sorting Algorithms
 - **Exploring the Concept of Stability in Sorting Algorithms**
 
-Enhance Your Algorithmic Understanding in Python!
 
