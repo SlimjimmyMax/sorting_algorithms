@@ -1,29 +1,36 @@
 #include "deck.h"
 
+int _strcmp(const char *s1, const char *s2);
+char get_value(deck_node_t *card);
+void insertion_sort_deck_kind(deck_node_t **deck);
+void insertion_sort_deck_value(deck_node_t **deck);
+void sort_deck(deck_node_t **deck);
+
 /**
  * _strcmp - Compares two strings.
- * @str1: The first string.
- * @str2: The second string.
+ * @s1: The first string to be compared.
+ * @s2: The second string to be compared.
  *
- * Return: 0 if strings are equal, positive if str1 > str2,
- * negative if str1 < str2.
+ * Return: Positive byte difference if s1 > s2
+ *         0 if s1 == s2
+ *         Negative byte difference if s1 < s2
  */
-int _strcmp(const char *str1, const char *str2)
+int _strcmp(const char *s1, const char *s2)
 {
-	while (*str1 && *str2 && *str1 == *str2)
+	while (*s1 && *s2 && *s1 == *s2)
 	{
-		str1++;
-		str2++;
+		s1++;
+		s2++;
 	}
 
-	if (*str1 != *str2)
-		return (*str1 - *str2);
+	if (*s1 != *s2)
+		return (*s1 - *s2);
 	return (0);
 }
 
 /**
- * get_value - Returns the numerical value of a playing card.
- * @card: The card to get the value of.
+ * get_value - Get the numerical value of a card.
+ * @card: A pointer to a deck_node_t card.
  *
  * Return: The numerical value of the card.
  */
@@ -59,9 +66,8 @@ char get_value(deck_node_t *card)
 }
 
 /**
- * insertion_sort_deck_kind - Sorts a deck of cards by
- * kind using insertion sort.
- * @deck: Pointer to the deck of cards to be sorted.
+ * insertion_sort_deck_kind - Sort a deck of cards from spades to diamonds.
+ * @deck: A pointer to the head of a deck_node_t doubly-linked list.
  */
 void insertion_sort_deck_kind(deck_node_t **deck)
 {
@@ -89,9 +95,9 @@ void insertion_sort_deck_kind(deck_node_t **deck)
 }
 
 /**
- * insertion_sort_deck_value - Sorts a deck of cards by
- * value using insertion sort.
- * @deck: Pointer to the deck of cards to be sorted.
+ * insertion_sort_deck_value - Sort a deck of cards sorted from
+ *                             spades to diamonds from ace to king.
+ * @deck: A pointer to the head of a deck_node_t doubly-linked list.
  */
 void insertion_sort_deck_value(deck_node_t **deck)
 {
@@ -102,8 +108,8 @@ void insertion_sort_deck_value(deck_node_t **deck)
 		tmp = iter->next;
 		insert = iter->prev;
 		while (insert != NULL &&
-				insert->card->kind == iter->card->kind &&
-				get_value(insert) > get_value(iter))
+		       insert->card->kind == iter->card->kind &&
+		       get_value(insert) > get_value(iter))
 		{
 			insert->next = iter->next;
 			if (iter->next != NULL)
@@ -121,8 +127,9 @@ void insertion_sort_deck_value(deck_node_t **deck)
 }
 
 /**
- * sort_deck - Sorts a deck of cards using insertion sort.
- * @deck: Pointer to the deck of cards to be sorted.
+ * sort_deck - Sort a deck of cards from ace to king and
+ *             from spades to diamonds.
+ * @deck: A pointer to the head of a deck_node_t doubly-linked list.
  */
 void sort_deck(deck_node_t **deck)
 {
